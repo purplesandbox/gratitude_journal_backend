@@ -1,14 +1,16 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require('mongoose');
-const { Gratitude, Affirmation, Step, User } = require('./models/Logs')
+const { Gratitude, Affirmation, Step, User } = require('./models/Logs');
+const corsOptions = require('./config/corsOptions');
+const connectDB = require('./config/dbConn');
 var md5 = require('md5');
 
 const cors = require('cors');
 
 const app= express();
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 
 const username = process.env.USER_NAME;
 const password = process.env.PASSWORD;
@@ -73,24 +75,6 @@ app.get('/users', async (req, res) => {
     });
 
 });
-
-
-// app.post("/authenticate", async (req,res) => {
-//     const email = req.body.email;
-//     const password = req.body.password;
-
-//     await User.findOne({email:email}, (err, foundUser){
-//         if (err) {
-//             console.log();
-//         } else {
-//             if (foundUser) {
-//                 if (foundUser.password === password) {
-//                     console.log("the check has passed!")
-//                 }
-//             }
-//         }
-//     })
-// })
 
 
 
