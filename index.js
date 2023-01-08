@@ -2,15 +2,13 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require('mongoose');
 const { Gratitude, Affirmation, Step, User } = require('./models/Logs');
-const corsOptions = require('./config/corsOptions');
-const connectDB = require('./config/dbConn');
 var md5 = require('md5');
 
 const cors = require('cors');
 
 const app= express();
 app.use(express.json());
-app.use(cors(corsOptions));
+app.use();
 
 const username = process.env.USER_NAME;
 const password = process.env.PASSWORD;
