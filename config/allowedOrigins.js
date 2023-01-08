@@ -1,6 +1,5 @@
 const allowedOrigins = [
-    'https://bullet-point-journal.onrender.com',
-    'https://bullet-point-journal.com'
+    'https://bullet-point-journal.onrender.com'
 ]
 
 module.exports = allowedOrigins
