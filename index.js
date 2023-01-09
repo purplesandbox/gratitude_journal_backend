@@ -186,5 +186,5 @@ app.put("/step/update/:id", async (req,res) => {
 
 
 app.listen(process.env.PORT || 3001, () => {
-    console.log("Server runs on the port 3001");
+    console.log("Server runs on the port", process.env.PORT);
 });
