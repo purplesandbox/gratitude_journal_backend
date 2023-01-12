@@ -11,15 +11,6 @@ const GratitudeSchema = new mongoose.Schema({
     
 });
 
-const UserRegistrationSchema = new mongoose.Schema({
-
-    fname:  String,
-    surname: String,
-    email: String,
-    password: String,
-    confirmpassword: String
-    
-});
 
 
 const AffirmationSchema = new mongoose.Schema({
@@ -54,8 +45,6 @@ const Affirmation = mongoose.model("Affirmation", AffirmationSchema);
 
 const Step = mongoose.model("Step", StepSchema);
 
-const User = mongoose.model("User", UserRegistrationSchema);
 
 
-
-module.exports = { Gratitude, Affirmation, Step, User };
+module.exports = { Gratitude, Affirmation, Step };

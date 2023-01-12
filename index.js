@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require('mongoose');
-const { Gratitude, Affirmation, Step, User } = require('./models/Logs');
+const { Gratitude, Affirmation, Step } = require('./models/Logs');
 var md5 = require('md5');
 
 const cors = require('cors');
@@ -12,6 +12,7 @@ app.use(cors());
 
 const username = process.env.USER_NAME;
 const password = process.env.PASSWORD;
+
 mongoose.connect("mongodb+srv://" + username + ":" + password + "@cluster0.fkigrvg.mongodb.net/journalDB", {
     useNewUrlParser: true, 
     useUnifiedTopology:true
@@ -20,9 +21,7 @@ mongoose.connect("mongodb+srv://" + username + ":" + password + "@cluster0.fkigr
     .catch(console.error);
 
 
-
-
-// API for getting all the records from the todo collection (Todo model) in the mern-todo database
+// API for getting all the records from the Logs collections of the JournalDB
 
 app.get('/gratitudes', async (req, res) => { 
 
@@ -62,17 +61,6 @@ app.get('/steps', async (req, res) => {
 
 });
 
-app.get('/users', async (req, res) => { 
-
-    User.find({}, (err, result) => {
-        if (err) {
-            console.log(err.message);
-        } else {
-            res.json(result);
-        }
-    });
-
-});
 
 
 
@@ -87,8 +75,6 @@ app.post('/gratitude/new', (req, res) => {
     gratitude.save();
     res.json(gratitude);
 });
-
-
 
 
 
@@ -110,23 +96,9 @@ app.post('/step/new', (req, res) => {
 });
 
 
-app.post('/user/new', (req, res) => {
-    const user = new User ({
-        fname:  req.body.fname,
-        surname: req.body.surname,
-        email: req.body.email,
-        password: md5(req.body.password),
-        confirmpassword: md5(req.body.confirmpassword)
-    });
-    user.save();
-    res.json(user);
-    
-});
 
 
-
-
-// API for deleting the record in the todo collection (Todo model) in the mern-todo database
+// API for deleting the records from Logs collections in the JournalDB
 
 app.delete('/gratitude/delete/:id', async (req,res) => {
     const result = await Gratitude.findByIdAndDelete(req.params.id);
@@ -153,7 +125,8 @@ app.delete('/step/delete/:id', async (req,res) => {
 });
 
 
-// API for updating the record in the todo collection (Todo model) in the mern-todo database
+// API for updating the records from the Logs collections of the Journal database
+
 app.put("/gratitude/update/:id", async (req,res) => {
     const result = await Gratitude.findById(req.params.id);
     result.gratitude = req.body.gratitude;
